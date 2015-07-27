@@ -107,13 +107,7 @@ class Soap12(Soap11):
 
             _append(subelts, code)
 
-        if isinstance(inst.detail, dict):
-            _append(subelts, E('{%s}Detail' % self.ns_soap_env, root_dict_to_etree(inst.detail)))
-
-        elif inst.detail is None:
-            pass
-        else:
-            raise TypeError('Fault detail Must be dict, got', type(inst.detail))
+        self._add_detail(subelts, inst)
 
         return self.gen_members_parent(ctx, cls, inst, parent, tag_name,
                                                         subelts, add_type=False)
@@ -142,7 +136,7 @@ class Soap12(Soap11):
 
             _append(subelts, code)
 
-        _append(subelts, E('{%s}Detail' % self.soap_env, inst.detail))
+        self._add_detail(subelts, inst)
 
         return self.gen_members_parent(ctx, cls, inst, parent, tag_name,
                                                         subelts, add_type=False)
@@ -162,3 +156,12 @@ class Soap12(Soap11):
             faultactor += node.text.strip()
         return cls(faultcode=code, faultstring=reason,
                    faultactor = faultactor, detail=detail)
+
+
+    def _add_detail(self, subelts, inst):
+        if isinstance(inst.detail, dict):
+            _append(subelts, E('{%s}Detail' % self.ns_soap_env, root_dict_to_etree(inst.detail)))
+        elif inst.detail is None:
+            pass
+        else:
+            raise TypeError('Fault detail Must be dict, got', type(inst.detail))
