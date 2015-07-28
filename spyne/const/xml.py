@@ -34,7 +34,7 @@ NS_SOAP12_ENC = 'http://www.w3.org/2003/05/soap-encoding'
 NS_SOAP12_ENV = 'http://www.w3.org/2003/05/soap-envelope'
 
 NS_WSDL11 = 'http://schemas.xmlsoap.org/wsdl/'
-NS_WSDL11_SOAP = 'http://schemas.xmlsoap.org/wsdl/soap/'
+NS_WSDL11_SOAP = 'http://schemas.xmlsoap.org/wsdl/soap12/'
 
 NSMAP = {
     'xml': NS_XML,
